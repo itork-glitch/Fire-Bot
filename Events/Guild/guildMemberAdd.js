@@ -1,15 +1,23 @@
-const { EmbedBuilder, GuildMember, WelcomeChannel } = require('discord.js');
+const { EmbedBuilder, GuildMember } = require('discord.js');
+
+const { guildID, userRoleID } = require('../../security/config.json');
 
 module.exports = {
   name: 'guildMemberAdd',
   execute(member) {
-    const { user, guild } =
-      member.guild.channels.cache.get('926040106987569203');
-    const welcomeMessage = `Hej <@${member.id}> witamy na serwerze!`;
-    const startChanel = guild.channels.cache.get('926040106987569203');
+    const { user, guild } = member.guild.channels.cache.get(`${guildID}`);
+    const startChanel = guild.channels.cache.get(`${guildID}`);
 
-    startChanel.send({ content: welcomeMessage });
+    const welcomeEmbed = new EmbedBuilder()
+      .setTitle('**Nowy członek!**')
+      .setDescription(`Hej <@${member.id}> witamy na serwerze!`)
+      .setColor(0x037821)
+      .addFields({ name: 'Członków', value: `${guild.memberCount}` })
+      .setTimestamp();
+
+    startChanel.send({ embeds: [welcomeEmbed] });
 
     console.log(`\n \n${member.user.tag} dołączył do serwera!`);
+    member.roles.add(userRoleID);
   },
 };
