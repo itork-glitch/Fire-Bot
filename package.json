@@ -1,0 +1,14 @@
+{
+  "name": "fuse-bot",
+  "version": "0.0.1",
+  "description": "Discord Bot",
+  "main": "index.js",
+  "scripts": {
+    "Start": "node ."
+  },
+  "author": "Itork",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.7.1"
+  }
+}
