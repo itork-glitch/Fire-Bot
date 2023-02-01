@@ -3,6 +3,8 @@ const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember, Channel } = Partials;
 
+const { loadEvents } = require('./Handlers/eventHandler');
+
 const { token } = require('./security/config.json');
 
 const client = new Client({
@@ -14,4 +16,6 @@ client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.login(token);
+client.login(token).then(() => {
+  loadEvents(client);
+});
