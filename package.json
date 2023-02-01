@@ -4,11 +4,13 @@
   "description": "Discord Bot",
   "main": "index.js",
   "scripts": {
-    "Start": "node ."
+    "Run": "node ."
   },
   "author": "Itork",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^14.7.1"
+    "ascii-table": "^0.0.9",
+    "discord.js": "^14.7.1",
+    "fs": "^0.0.1-security"
   }
 }
