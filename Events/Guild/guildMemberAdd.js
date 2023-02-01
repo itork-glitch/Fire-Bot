@@ -1,23 +1,35 @@
-const { EmbedBuilder, GuildMember } = require('discord.js');
+const { EmbedBuilder } = require('@discordjs/builders');
 
 const { guildID, userRoleID } = require('../../security/config.json');
+const Welcome = require('../../Models/Welcome');
 
 module.exports = {
   name: 'guildMemberAdd',
-  execute(member) {
-    const { user, guild } = member.guild.channels.cache.get(`${guildID}`);
-    const startChanel = guild.channels.cache.get(`${guildID}`);
+  async execute(member) {
+    Welcome.findOne({ Guild: member.guild.id }, async (err, data) => {
+      if (!data) return;
 
-    const welcomeEmbed = new EmbedBuilder()
-      .setTitle('**Nowy członek!**')
-      .setDescription(`Hej <@${member.id}> witamy na serwerze!`)
-      .setColor(0x037821)
-      .addFields({ name: 'Członków', value: `${guild.memberCount}` })
-      .setTimestamp();
+      let channel = data.Channel;
+      let Msg = data.Msg || ' ';
+      let Role = data.Role;
 
-    startChanel.send({ embeds: [welcomeEmbed] });
+      const { user, guild } = member;
+      const welcomeChannel = member.guild.channels.cache.get(data.Channel);
 
-    console.log(`\n \n${member.user.tag} dołączył do serwera!`);
-    member.roles.add(userRoleID);
+      const welcomeEmbed = new EmbedBuilder()
+        .setTitle('**Nowy członek serwera!**')
+        .setDescription(data.Msg)
+        .setColor(0x037821)
+        .setAuthor({
+          name: member.user.tag,
+          iconURL: member.user.displayAvatarURL({ dynamic: true }),
+        })
+        .addFields({ name: 'Członków:', value: `${guild.memberCount}` })
+        .setTimestamp()
+        .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
+
+      welcomeChannel.send({ embeds: [welcomeEmbed] });
+      member.roles.add(data.Role);
+    });
   },
 };

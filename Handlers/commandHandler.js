@@ -1,7 +1,7 @@
 function loadCommands(client) {
   const ascii = require('ascii-table');
   const fs = require('fs');
-  const table = new ascii().setHeading('Komendy', 'Status');
+  const table = new ascii().setHeading('Komenda', 'Status');
 
   let commandsArray = [];
 
