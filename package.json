@@ -4,13 +4,15 @@
   "description": "Discord Bot",
   "main": "index.js",
   "scripts": {
-    "Run": "node ."
+    "dev": "nodemon",
+    "public": "node ."
   },
   "author": "Itork",
   "license": "ISC",
   "dependencies": {
     "ascii-table": "^0.0.9",
     "discord.js": "^14.7.1",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "nodemon": "^2.0.20"
   }
 }
