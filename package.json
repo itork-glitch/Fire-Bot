@@ -2,10 +2,10 @@
   "name": "fuse-bot",
   "version": "0.0.1",
   "description": "Discord Bot",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "dev": "nodemon",
-    "public": "node ."
+    "start:dev": "nodemon",
+    "start:public": "node ."
   },
   "author": "Itork",
   "license": "ISC",
