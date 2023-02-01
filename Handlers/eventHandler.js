@@ -1,13 +1,13 @@
 function loadEvents(client) {
-  const ascii = require("ascii-table");
-  const fs = require("fs");
-  const table = new ascii().setHeading("Events", "Status");
+  const ascii = require('ascii-table');
+  const fs = require('fs');
+  const table = new ascii().setHeading('Eventy', 'Status');
 
-  const folders = fs.readdirSync("./Events");
+  const folders = fs.readdirSync('./Events');
   for (const folder of folders) {
     const files = fs
       .readdirSync(`./Events/${folder}`)
-      .filter((file) => file.endsWith(".js"));
+      .filter((file) => file.endsWith('.js'));
     for (const file of files) {
       const event = require(`../Events/${folder}/${file}`);
 
@@ -25,11 +25,11 @@ function loadEvents(client) {
           client.once(event.name, (...args) => event.execute(...args, client));
         else client.on(event.name, (...args) => event.execute(...args, client));
       }
-      table.addRow(file, "loaded");
+      table.addRow(file, 'Online');
       continue;
     }
   }
-  return console.log(table.toString(), "\n Loaded events.");
+  return console.log(table.toString(), '\n Załadowano eventy. \n\n');
 }
 
-module.exports = {loadEvents};
+module.exports = { loadEvents };

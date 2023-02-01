@@ -14,7 +14,7 @@ module.exports = {
     .setDescription('Stwórz embeda z weryfikacją')
     .addChannelOption((option) =>
       option
-        .setName('channel')
+        .setName('kanał')
         .setDescription('Ustaw kanał z weryfikacją')
         .setRequired(true)
     )
@@ -28,7 +28,7 @@ module.exports = {
 
     let message;
     try {
-      const channel = interaction.options.getChannel('channel');
+      const channel = interaction.options.getChannel('kanał');
       message = await channel.send({
         embeds: ([veryfiEmbed]),
         components: [

@@ -1,15 +1,15 @@
 function loadCommands(client) {
-  const ascii = require("ascii-table");
-  const fs = require("fs");
-  const table = new ascii().setHeading("Commands", "Status");
+  const ascii = require('ascii-table');
+  const fs = require('fs');
+  const table = new ascii().setHeading('Komendy', 'Status');
 
   let commandsArray = [];
 
-  const commandsFolder = fs.readdirSync("./Commands");
+  const commandsFolder = fs.readdirSync('./Commands');
   for (const folder of commandsFolder) {
     const commandFiles = fs
       .readdirSync(`./Commands/${folder}`)
-      .filter((file) => file.endsWith("js"));
+      .filter((file) => file.endsWith('js'));
 
     for (const file of commandFiles) {
       const commandFile = require(`../Commands/${folder}/${file}`);
@@ -19,14 +19,14 @@ function loadCommands(client) {
       if (commandFile.developer) developerArray.push(commandFile.data.toJSON());
       else commandsArray.push(commandFile.data.toJSON());
 
-      table.addRow(file, "loaded");
+      table.addRow(file, 'Gotowa');
       continue;
     }
   }
 
   client.application.commands.set(commandsArray);
 
-  return console.log(table.toString(), "\n Loaded Commands");
+  return console.log(table.toString(), '\n Załadowano komendy. \n\n');
 }
 
-module.exports = {loadCommands};
+module.exports = { loadCommands };
