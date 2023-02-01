@@ -29,7 +29,7 @@ function loadEvents(client) {
       continue;
     }
   }
-  return console.log(table.toString(), '\n Załadowano eventy. \n\n');
+  return console.log(table.toString(), '\n Załadowano eventy. \n');
 }
 
 module.exports = { loadEvents };

@@ -20,6 +20,19 @@ client.commands = new Collection();
 client.config = require('./security/config.json');
 client.key = require('./security/key.json');
 
+client.once(`ready`, () => {
+  const statusList = [
+    `🛹  ▏ ${client.guilds.cache.size} SERWERÓW`,
+    '⛑️  ▏Użyj /pomoc',
+    '🛠️  ▏Developer: Itork',
+  ];
+  setInterval(() => {
+    const index = Math.floor(Math.random() * (statusList.length - 1) + 1);
+    client.user.setActivity(statusList[index]);
+  }, 5000); // 1 s = 1000 ms
+
+  client.user.setStatus(`online`); // dnd, idle, online, invisible
+});
 client
   .login(client.key.token)
   .then(() => {
