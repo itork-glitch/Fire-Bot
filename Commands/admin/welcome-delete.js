@@ -6,8 +6,6 @@ const {
   Client,
   Integration,
 } = require('discord.js');
-const { watchFile } = require('fs');
-const { waitForDebugger } = require('inspector');
 
 module.exports = {
   data: new SlashCommandBuilder()
