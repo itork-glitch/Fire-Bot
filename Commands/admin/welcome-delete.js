@@ -25,8 +25,6 @@ module.exports = {
 
     const serverID = options.getString('id');
 
-    interaction.reply({ content: `Wysyłanie do dewelopera`, ephemeral: true });
-
     const embed = new EmbedBuilder()
       .setTitle('📣  Nowe zgłoszenie!')
       .setDescription('Nowa prośba o usunięcie zapisu z bazy danych!')
@@ -44,5 +42,10 @@ module.exports = {
     }
 
     sendEmbed('789137891192340550', embed);
+
+    interaction.reply({
+      content: 'Pomyślnie wysłano do dewelopera',
+      ephemeral: true,
+    });
   },
 };
