@@ -61,23 +61,24 @@ module.exports = {
       ephemeral: false,
     });
 
-    const embedDM = new EmbedBuilder()
-      .setTitle('Zostałeś wyrzucony')
-      .setColor('#ff0000')
-      .addFields(
-        { name: 'Serwer:', value: `${interaction.guild.name}` },
-        { name: 'Powód:', value: `${reason}` },
-        { name: 'Admin:', value: `${interaction.member}` }
-      )
-      .setTimestamp();
+    if (!user.bot) {
+      const embedDM = new EmbedBuilder()
+        .setTitle('Zostałeś wyrzucony')
+        .setColor('#ff0000')
+        .addFields(
+          { name: 'Serwer:', value: `${interaction.guild.name}` },
+          { name: 'Powód:', value: `${reason}` },
+          { name: 'Admin:', value: `${interaction.member}` }
+        );
 
-    async function sendEmbed(recipientID, embedDM) {
-      const recipient = await client.users.fetch(recipientID);
-      const dmChannel = await recipient.createDM();
-      await dmChannel.send({ embeds: [embedDM] });
+      async function sendEmbed(recipientID, embedDM) {
+        const recipient = await client.users.fetch(recipientID);
+        const dmChannel = await recipient.createDM();
+        await dmChannel.send({ embeds: [embedDM] });
+      }
+
+      sendEmbed(user.id, embedDM);
     }
-
-    sendEmbed(user.id, embedDM);
 
     setTimeout(async () => {
       await member.kick(reason);
