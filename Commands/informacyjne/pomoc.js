@@ -18,6 +18,7 @@ module.exports = {
       moderacyjne: { name: '👮' },
       administracyjne: { name: '🫀' },
       testowe: { name: '⚙️' },
+      użytkowe: { name: '🔧' },
     };
 
     const directories = [
