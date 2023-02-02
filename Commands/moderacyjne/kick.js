@@ -11,13 +11,13 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
     .addUserOption((option) =>
       option
-        .setName('uzytkownik')
+        .setName('użytkownik')
         .setDescription('Użytkownik który zostanie wyrzucony')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
-        .setName('powod')
+        .setName('powód')
         .setDescription('Dodaj powód wyrzucenia')
         .setRequired(true)
     ),
@@ -25,8 +25,8 @@ module.exports = {
   async execute(interaction, client) {
     const { channel, options } = interaction;
 
-    const user = options.getUser('uzytkownik');
-    const reason = options.getString('powod');
+    const user = options.getUser('użytkownik');
+    const reason = options.getString('powód');
 
     const member = await interaction.guild.members.fetch(user.id);
 

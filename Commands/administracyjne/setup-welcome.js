@@ -15,13 +15,13 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addChannelOption((option) =>
       option
-        .setName('kanal')
+        .setName('kanał')
         .setDescription('Ustaw kanał powitań.')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
-        .setName('wiadomosc')
+        .setName('wiadomość')
         .setDescription('Ustaw wiadomość powitalną.')
         .setRequired(true)
     )
@@ -35,7 +35,7 @@ module.exports = {
   async execute(interaction) {
     const { channel, options } = interaction;
 
-    const welcomeChannel = options.getChannel('kanal');
+    const welcomeChannel = options.getChannel('kanał');
     const welcomeMessage = options.getString('wiadomosc');
     const roleID = options.getRole('rola');
 

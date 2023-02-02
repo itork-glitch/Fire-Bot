@@ -18,15 +18,17 @@ module.exports = {
     )
     .addUserOption((option) =>
       option
-        .setName('cel')
-        .setDescription('Wybierz cel usunięcia wiadomości.')
+        .setName('użytkownik')
+        .setDescription(
+          'Wybierz użytkownika od którego chesz usunąć wiadomości.'
+        )
         .setRequired(false)
     ),
 
   async execute(interaction) {
     const { channel, options } = interaction;
     const amount = options.getInteger('ilość');
-    const target = options.getUser('cel');
+    const target = options.getUser('użytkownik');
 
     const messages = await channel.messages.fetch({
       limit: amount + 1,
