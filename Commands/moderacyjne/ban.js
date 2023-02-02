@@ -6,24 +6,24 @@ const {
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('wyrzuc')
-    .setDescription('Wyrzuć użytkownika z serwera.')
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers)
+    .setName('ban')
+    .setDescription('Zbanuj użytkownika na tym serwerze.')
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
     .addUserOption((option) =>
       option
         .setName('użytkownik')
-        .setDescription('Użytkownik który zostanie wyrzucony')
+        .setDescription('Wybierz użytkownika.')
         .setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('powód')
-        .setDescription('Dodaj powód wyrzucenia')
+        .setDescription('Podaj powód zbanowania.')
         .setRequired(true)
     ),
 
   async execute(interaction, client) {
-    const { channel, options } = interaction;
+    const { options } = interaction;
 
     const user = options.getUser('użytkownik');
     const reason = options.getString('powód');
@@ -47,7 +47,7 @@ module.exports = {
     }
 
     const embed = new EmbedBuilder()
-      .setTitle('🔫 Wyrzucono użytkownika!')
+      .setTitle('☠️ Zbanowano użytkownika!')
       .setColor('#ff0000')
       .addFields(
         { name: 'Użytkownik:', value: `${user}` },
@@ -63,7 +63,7 @@ module.exports = {
 
     if (!user.bot) {
       const embedDM = new EmbedBuilder()
-        .setTitle('Zostałeś wyrzucony')
+        .setTitle('Zostałeś zbanowany!')
         .setColor('#ff0000')
         .addFields(
           { name: 'Serwer:', value: `${interaction.guild.name}` },
@@ -81,7 +81,7 @@ module.exports = {
     }
 
     setTimeout(async () => {
-      await member.kick(reason);
+      await member.ban({ reason });
     }, 2000);
   },
 };
