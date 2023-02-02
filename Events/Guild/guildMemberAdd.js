@@ -19,12 +19,11 @@ module.exports = {
       const welcomeEmbed = new EmbedBuilder()
         .setTitle('**Nowy członek serwera!**')
         .setDescription(data.Msg)
-        .setColor(0x037821)
+        .setColor(0x00ff00)
         .setAuthor({
           name: member.user.tag,
           iconURL: member.user.displayAvatarURL({ dynamic: true }),
         })
-        .addFields({ name: 'Członków:', value: `${guild.memberCount}` })
         .setTimestamp()
         .setThumbnail(member.user.displayAvatarURL({ dynamic: true }));
 
