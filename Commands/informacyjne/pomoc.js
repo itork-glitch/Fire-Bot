@@ -14,10 +14,10 @@ module.exports = {
     .setDescription('Lista wszyskich komend tego bota.'),
   async execute(interaction) {
     const emojis = {
-      info: { name: '📝' },
-      moderation: { name: '👮' },
-      admin: { name: '🫀' },
-      test: { name: '⚙️' },
+      informacyjne: { name: '📝' },
+      moderacyjne: { name: '👮' },
+      administracyjne: { name: '🫀' },
+      testowe: { name: '⚙️' },
     };
 
     const directories = [
@@ -44,9 +44,9 @@ module.exports = {
       };
     });
 
-    const embed = new EmbedBuilder().setDescription(
-      'Wybierz kategorie z menu.'
-    );
+    const embed = new EmbedBuilder()
+      .setDescription('Wybierz kategorie z menu.')
+      .setColor('Random');
 
     const components = (state) => [
       new ActionRowBuilder().addComponents(
@@ -88,6 +88,7 @@ module.exports = {
 
       const categoryEmbed = new EmbedBuilder()
         .setTitle(`${formatString(directory)} komendy`)
+        .setColor('Green')
         .setDescription(`Lista wszyskich komend z kategori ${directory}`)
         .addFields(
           category.commands.map((cmd) => {
