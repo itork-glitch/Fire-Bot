@@ -25,6 +25,7 @@ client.once(`ready`, () => {
     `🛹  ▏ ${client.guilds.cache.size} SERWERÓW`,
     '⛑️  ▏Użyj /pomoc',
     '🛠️  ▏Developer: Itork',
+    '🪧  ▏Oznacz mnie po więcej info',
   ];
   setInterval(() => {
     const index = Math.floor(Math.random() * (statusList.length - 1) + 1);
