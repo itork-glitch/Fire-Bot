@@ -25,8 +25,6 @@ module.exports = {
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
-      console.error(error);
-
       const errEmbed = new EmbedBuilder()
         .setTitle('❌ Nie można stworzyć linku zaproszenia')
         .setDescription('Wystąpił błąd podczas tworzenia linku zaproszenia')
