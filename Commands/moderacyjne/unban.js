@@ -6,7 +6,7 @@ const {
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('unban')
+    .setName('odbanuj')
     .setDescription('Odbanuj użytkownika na serwerze')
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
     .addStringOption((option) =>

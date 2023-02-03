@@ -20,7 +20,6 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
-    
     const veryfiEmbed = new EmbedBuilder()
       .setTitle('✅ Weryfikacja')
       .setDescription('Kliknj w button aby się zweryfikować.')
@@ -30,7 +29,7 @@ module.exports = {
     try {
       const channel = interaction.options.getChannel('kanał');
       message = await channel.send({
-        embeds: ([veryfiEmbed]),
+        embeds: [veryfiEmbed],
         components: [
           new ActionRowBuilder().setComponents(
             new ButtonBuilder()
