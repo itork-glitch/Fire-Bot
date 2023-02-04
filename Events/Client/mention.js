@@ -34,10 +34,23 @@ module.exports = {
             `Hej <@${author.id}> jestem wielozadaniowym botem który pomoże ci w prowadzeniu własego serwera lub przyjemnego korzystania z niego. Oferuje dużo komend każdej kategori. A nazywam się **Fire Bot**. Miłej zabawy :)`
           )
           .setFields(
-            { name: 'Deweloper:', value: `<@${author.id}>`, inline: true },
-            { name: 'Wersja bota:', value: `${version}`, inline: true },
-            { name: 'Użyj aby poznać komendy:', value: `\`/pomoc\`` },
-            { name: 'Dowiedz się więcej o mnie:', value: `\`/bot-info\`` }
+            {
+              name: 'Deweloper:',
+              value: `<@789137891192340550>`,
+              inline: true,
+            },
+            { name: 'Wersja bota:', value: `\`${version}\``, inline: true },
+            { name: 'Prefix:', value: `\`/\``, inline: true },
+            {
+              name: 'Użyj aby poznać komendy:',
+              value: `\`/pomoc\``,
+              inline: true,
+            },
+            {
+              name: 'Dowiedz się więcej o mnie:',
+              value: `\`/bot-info\``,
+              inline: true,
+            }
           ),
       ],
     });

@@ -36,7 +36,7 @@ module.exports = {
     const { channel, options } = interaction;
 
     const welcomeChannel = options.getChannel('kanał');
-    const welcomeMessage = options.getString('wiadomosc');
+    const welcomeMessage = options.getString('wiadomość');
     const roleID = options.getRole('rola');
 
     if (

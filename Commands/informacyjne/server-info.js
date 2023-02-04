@@ -11,7 +11,8 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('serwer-info')
-    .setDescription('Informacje o serwerze!'),
+    .setDescription('Informacje o serwerze!')
+    .setDMPermission(false),
   /**
    * @param {ChatInputCommandInteraction} interaction
    */
