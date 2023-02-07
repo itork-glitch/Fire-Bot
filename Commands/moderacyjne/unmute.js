@@ -8,6 +8,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('odblokuj')
+    .setDMPermission(false)
     .setDescription('Usuń karę czasową z użytkownika')
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .addUserOption((option) =>
