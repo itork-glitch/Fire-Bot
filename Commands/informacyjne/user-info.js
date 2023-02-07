@@ -18,6 +18,10 @@ module.exports = {
     const member = await interaction.guild.members.cache.get(user.id);
     const icon = user.displayAvatarURL();
     const tag = user.tag;
+    let userBot = '<a:veryfi:943059426825343017>';
+    if (!user.bot) {
+      userBot = '❌';
+    }
 
     const embed = new EmbedBuilder()
       .setColor('Blue')
@@ -26,8 +30,9 @@ module.exports = {
         { name: 'Nazwa:', value: `${user}` },
         {
           name: 'Role:',
-          value: `${member.roles.cache.map((r) => r).join(``)}`,
+          value: `${member.roles.cache.map((r) => r).join(` `)}`,
         },
+        { name: 'Czy jest botem:', value: `${userBot}` },
         {
           name: 'Dołączył do serwera:',
           value: `<t:${parseInt(member.joinedAt / 1000)}:R>`,

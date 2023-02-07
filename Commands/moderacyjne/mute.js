@@ -9,6 +9,7 @@ const ms = require('ms');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('wycisz')
+    .setDMPermission(false)
     .setDescription('Tymczasowo zablokuj korzystanie z serwera danej osobie.')
     .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers)
     .addUserOption((option) =>

@@ -12,6 +12,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('weryfikacja')
     .setDescription('Stwórz embeda z weryfikacją')
+    .setDMPermission(false)
     .addChannelOption((option) =>
       option
         .setName('kanał')

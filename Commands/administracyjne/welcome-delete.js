@@ -10,6 +10,7 @@ const {
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('usun-wecome')
+    .setDMPermission(false)
     .setDescription(
       'Ta komenda zleci developerowi wyszczyszczenie konfiguracji z bazy danych.'
     )
