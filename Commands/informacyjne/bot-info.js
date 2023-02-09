@@ -35,7 +35,7 @@ module.exports = {
 
           {
             name: '🧿・Nazwa:',
-            value: `${client.user.username}`,
+            value: `\`${client.user.username}\``,
             inline: true,
           },
           {

@@ -21,11 +21,13 @@ module.exports = {
 
     if (!user.bot) {
       const embed = new EmbedBuilder()
-        .setTitle('Wiadomość')
+        .setTitle('Wiadomość:')
+        .setAuthor({
+          name: interaction.user.tag,
+          iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+        })
         .setColor('Random')
-        .setDescription(
-          `Wiadomość od użytkownika ${interaction.member} \n\n ${message}`
-        );
+        .setDescription(`${message}`);
       async function sendEmbed(recipientID, embed) {
         const recipient = await interaction.options.getUser('użytkownik');
         const dmChannel = await recipient.createDM();

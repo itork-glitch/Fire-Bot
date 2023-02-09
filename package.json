@@ -1,6 +1,6 @@
 {
   "name": "fire-bot",
-  "version": "0.6.1",
+  "version": "0.7",
   "description": "Discord Bot",
   "main": "main.js",
   "scripts": {

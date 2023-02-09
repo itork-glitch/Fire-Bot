@@ -18,21 +18,25 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    const { options } = interaction;
+    try {
+      const { options } = interaction;
 
-    const title = options.getString('tytuł');
-    const text = options.getString('treść');
-    const color = options.getString('kolor') || 'Random';
+      const title = options.getString('tytuł');
+      const text = options.getString('treść');
+      const color = options.getString('kolor') || 'Random';
 
-    const embed = new EmbedBuilder()
-      .setTitle(title)
-      .setColor(`${color}`)
-      .setDescription(text)
-      .setAuthor({
-        name: interaction.user.tag,
-        iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
-      });
+      const embed = new EmbedBuilder()
+        .setTitle(title)
+        .setColor(`${color}`)
+        .setDescription(text)
+        .setAuthor({
+          name: interaction.user.tag,
+          iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+        });
 
-    await interaction.reply({ embeds: [embed] });
+      await interaction.reply({ embeds: [embed] });
+    } catch (error) {
+      return interaction.reply({ content: 'Popraw kolor!', ephemeral: true });
+    }
   },
 };
