@@ -6,6 +6,7 @@ module.exports = {
     .setName('stwórz-rr')
     .setDescription('Stwórz reaction roles na swoim serwerze.')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles)
+    .setDMPermission(false)
     .addRoleOption((option) =>
       option.setName('rola').setDescription('Wybierz rolę.').setRequired(true)
     )

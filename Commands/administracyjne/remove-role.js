@@ -5,6 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('usuń-rr')
     .setDescription('Usuń reaction role')
+    .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles)
     .addRoleOption((option) =>
       option

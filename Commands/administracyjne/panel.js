@@ -11,6 +11,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('panel-rr')
     .setDescription('Panel w którym wybierasz rr.')
+    .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageRoles),
   async execute(interaction) {
     const { options, guildId, guild, channel } = interaction;
