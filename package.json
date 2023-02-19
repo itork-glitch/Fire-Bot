@@ -15,6 +15,7 @@
     "cpu-stat": "^2.0.1",
     "discord.js": "^14.7.1",
     "fs": "^0.0.1-security",
+    "mathjs": "^11.5.1",
     "mongoose": "^6.9.0",
     "nodemon": "^2.0.20",
     "openai": "^3.1.0"
