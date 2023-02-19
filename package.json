@@ -11,10 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "ascii-table": "^0.0.9",
+    "cloudinary": "^1.34.0",
     "cpu-stat": "^2.0.1",
     "discord.js": "^14.7.1",
     "fs": "^0.0.1-security",
     "mongoose": "^6.9.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "openai": "^3.1.0"
   }
 }
