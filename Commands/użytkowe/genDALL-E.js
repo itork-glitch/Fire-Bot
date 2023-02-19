@@ -3,9 +3,9 @@ const cloudinary = require('cloudinary').v2;
 const { openai } = require('../../main');
 
 cloudinary.config({
-  cloud_name: 'diclqltjd',
-  api_key: '991568765474472',
-  api_secret: 'dpBYJzRILOCN7wOUq8gCpl6Guo4',
+  cloud_name: '',
+  api_key: '',
+  api_secret: '',
 });
 
 module.exports = {
