@@ -5,12 +5,12 @@ module.exports = {
     .setName('data')
     .setDescription('Stwórz odliczanie do daty.')
     .addNumberOption((option) =>
-      option.setName('dzień').setDescription('test').setRequired(true)
+      option.setName('dzień').setDescription('Podaj dzień').setRequired(true)
     )
     .addStringOption((option) =>
       option
         .setName('miesiąc')
-        .setDescription('test')
+        .setDescription('Podaj miesiąc')
         .setRequired(true)
         .addChoices(
           { name: 'Styczeń', value: '1' },
@@ -28,13 +28,26 @@ module.exports = {
         )
     )
     .addNumberOption((option) =>
-      option.setName('rok').setDescription('test').setRequired(true)
+      option.setName('rok').setDescription('Podaj rok').setRequired(true)
+    )
+    .addStringOption((option) =>
+      option
+        .setName('kod')
+        .setDescription('Wybierz czy mam ci podać kod daty czy odliczanie')
+        .setRequired(false)
+        .addChoices(
+          { name: 'Tak', value: 'true' },
+          { name: 'Nie', value: 'false' }
+        )
     )
     .addIntegerOption((option) =>
-      option.setName('godzina').setDescription('test').setRequired(false)
+      option
+        .setName('godzina')
+        .setDescription('Podaj godzinę')
+        .setRequired(false)
     )
     .addIntegerOption((option) =>
-      option.setName('minuty').setDescription('test').setRequired(false)
+      option.setName('minuty').setDescription('Podaj minute').setRequired(false)
     ),
 
   async execute(interaction) {
@@ -44,6 +57,7 @@ module.exports = {
     const year = options.getNumber('rok');
     const hour = options.getInteger('godzina') || 12;
     const minute = options.getInteger('minuty') || 30;
+    const code = options.getString('kod') || 'false';
 
     const month = parseInt(monthString) - 1;
 
@@ -159,21 +173,38 @@ module.exports = {
     const date = new Date(year, month, day, hour, minute, 0, 0);
     const currDate = new Date();
 
-    if (date > currDate) {
-      const embed = new EmbedBuilder()
-        .setTitle('📅・Odliczanie do daty')
+    if (code == 'true') {
+      const embed5 = new EmbedBuilder()
+        .setTitle('📆・Kod daty')
         .setColor('Random')
         .setTimestamp()
-        .setDescription(`Ten dzień będzie <t:${parseInt(date / 1000)}:R>`);
+        .setDescription(
+          `Twoja data ma kod: \`<t:${parseInt(
+            date / 1000
+          )}:R>\` \n\n Możesz ten kod wkleić w kanale lub opisie profilu i będzie to wyglądać następująco:`
+        )
+        .setImage('https://i.imgur.com/0XAiVvX.png');
 
-      await interaction.reply({ embeds: [embed] });
+      await interaction.reply({ embeds: [embed5] });
+
+      return;
     } else {
-      const embed = new EmbedBuilder()
-        .setTitle('📆・Odliczanie od daty')
-        .setColor('Random')
-        .setTimestamp()
-        .setDescription(`Ten dzień był <t:${parseInt(date / 1000)}:R>`);
-      await interaction.reply({ embeds: [embed] });
+      if (date > currDate) {
+        const embed = new EmbedBuilder()
+          .setTitle('📅・Odliczanie do daty')
+          .setColor('Random')
+          .setTimestamp()
+          .setDescription(`Ten dzień będzie <t:${parseInt(date / 1000)}:R>`);
+
+        await interaction.reply({ embeds: [embed] });
+      } else {
+        const embed = new EmbedBuilder()
+          .setTitle('📆・Odliczanie od daty')
+          .setColor('Random')
+          .setTimestamp()
+          .setDescription(`Ten dzień był <t:${parseInt(date / 1000)}:R>`);
+        await interaction.reply({ embeds: [embed] });
+      }
     }
   },
 };
