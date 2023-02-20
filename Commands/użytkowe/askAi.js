@@ -28,10 +28,7 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setTitle('☄️・ChatGPT')
-        .setAuthor({
-          name: 'Open AI',
-          iconURL: 'https://imgur.com/RDOFqQd.png',
-        })
+        .setFooter({ text: 'Powered by Open AI' })
         .setDescription(
           `**Odpowiedz AI:** \`\`\` ${gptresponce.data.choices[0].text} \n \`\`\` `
         )
