@@ -1,4 +1,10 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -6,28 +12,24 @@ module.exports = {
     .setDescription('Przydatne linki do bota'),
 
   execute(interaction) {
-    const embed = new EmbedBuilder()
-      .setTitle('Linki')
-      .setColor('Random')
-      .setDescription('Przydatne link związane z botem.')
-      .addFields(
-        {
-          name: 'Strona:',
-          value: '[STRONA](https://itork.net)',
-          inline: true,
-        },
-        {
-          name: 'Discord:',
-          value: '[DISCORD](https://discord.gg/vBBuJvW4xA)',
-          inline: true,
-        },
-        {
-          name: 'Instagram:',
-          value: '[INSTAGRAM](https://www.instagram.com/_itork_/)',
-          inline: true,
-        }
-      );
+    const embed = new EmbedBuilder().setTitle('🔗・Linki').setColor('Random');
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder()
+        .setLabel('Moja strona')
+        .setStyle(ButtonStyle.Link)
+        .setURL('https://itork.net'),
 
-    interaction.reply({ embeds: [embed] });
+      new ButtonBuilder()
+        .setLabel('Serwer deweloperski')
+        .setStyle(ButtonStyle.Link)
+        .setURL('https://discord.gg/fk5hjMJ3PE'),
+
+      new ButtonBuilder()
+        .setLabel('Instagram')
+        .setStyle(ButtonStyle.Link)
+        .setURL('https://www.instagram.com/_itork_/')
+    );
+
+    interaction.reply({ embeds: [embed], components: [row] });
   },
 };

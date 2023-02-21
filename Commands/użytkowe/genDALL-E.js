@@ -28,7 +28,8 @@ module.exports = {
 
   async execute(interaction) {
     const { options } = interaction;
-    const prompt = options.getString('treść');
+    const rowPrompt = options.getString('treść');
+    const prompt = rowPrompt.charAt(0).toUpperCase() + rowPrompt.slice(1);
 
     try {
       interaction.deferReply();
@@ -47,8 +48,8 @@ module.exports = {
       const result = await cloudinary.uploader.upload(
         `data:image/jpeg;base64,${dalleresponce.data.data[0].b64_json}`,
         {
-          public_id: `${publicId}`,
-          context: `alt=${prompt}|description=${prompt}`,
+          public_id: `${randomNumber}`,
+          context: `alt=${prompt}|description=${publicId}`,
         }
       );
 
@@ -66,6 +67,10 @@ module.exports = {
           {
             name: 'Stworzono dla:',
             value: `${interaction.member}`,
+          },
+          {
+            name: 'ID:',
+            value: `\`${randomNumber}\``,
           }
         );
 
