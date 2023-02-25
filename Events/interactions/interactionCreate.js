@@ -71,6 +71,37 @@ module.exports = {
           });
         }
       }
+
+      if (customId == 'play') {
+        try {
+          const spotifyPlay = new spotifySearchSchema({
+            messID: interaction.message.id,
+          });
+
+          const messageID = spotifyPlay.messID;
+          const message = await interaction.channel.messages.fetch(messageID);
+
+          const embed = message.embeds[0];
+          const fields = embed.fields;
+
+          const req = fields[0].value;
+          // Wyszukujemy playlistę na Spotify
+          const res = await spotifyApi.searchPlaylists(`${req}`, { limit: 1 });
+
+          // Pobieramy pierwszy wynik wyszukiwania
+          const firstResult = res.body.playlists.items[0];
+
+          // Tworzymy link do playlisty
+          const playlistLink = firstResult.external_urls.spotify;
+
+          interaction.reply({ content: `${playlistLink}`, ephemeral: true });
+        } catch (err) {
+          return interaction.reply({
+            content: 'Coś poszło nie tak! Spróbuj ponownie później.',
+            ephermaly: true,
+          });
+        }
+      }
     } else if (interaction.isStringSelectMenu()) {
       if (customId == 'reaction-roles') {
         for (let i = 0; i < values.length; i++) {
