@@ -5,7 +5,6 @@ const {
   ButtonBuilder,
   ButtonStyle,
 } = require('discord.js');
-const { constants } = require('fs/promises');
 
 const spotifyApi = require('../../main').spotifyApi;
 const spotifySearchSchema = require('../../Models/Spotify');
