@@ -17,13 +17,33 @@ const client = new Client({
   partials: [User, Message, GuildMember, ThreadMember],
 });
 
-client.commands = new Collection();
 client.config = require('./security/config.json');
-client.key = require('./security/key.json');
+const key = require('./security/key.json');
+
+const SpotifyWebApi = require('spotify-web-api-node');
+
+// Tworzymy instancję klienta Spotify
+const spotifyApi = new SpotifyWebApi({
+  clientId: key.spotifyID,
+  clientSecret: key.spotifySecret,
+});
+
+// Pobieramy token dostępu za pomocą clientId i clientSecret
+spotifyApi.clientCredentialsGrant().then(
+  function (data) {
+    // Ustawiamy token jako autoryzację do Spotify API
+    spotifyApi.setAccessToken(data.body['access_token']);
+  },
+  function (err) {
+    console.log('Błąd podczas pobierania tokenu dostępu Spotify.', err.message);
+  }
+);
+
+client.commands = new Collection();
 
 const configuration = new Configuration({
-  organization: client.key.gptID,
-  apiKey: client.key.gpt,
+  organization: key.gptID,
+  apiKey: key.gpt,
 });
 const openai = new OpenAIApi(configuration);
 
@@ -42,11 +62,11 @@ client.once(`ready`, () => {
   client.user.setStatus(`online`); // dnd, idle, online, invisible
 });
 client
-  .login(client.key.token)
+  .login(key.token)
   .then(() => {
     loadCommands(client);
     loadEvents(client);
   })
   .catch((err) => console.log(err));
 
-module.exports = { openai };
+module.exports = { openai, spotifyApi };

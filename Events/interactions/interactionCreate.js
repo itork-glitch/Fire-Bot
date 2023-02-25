@@ -1,5 +1,6 @@
-const { CommandInteraction } = require('discord.js');
 const { verifiedRoleID } = require('../../security/config.json');
+const spotifySearchSchema = require('../../Models/Spotify');
+const { spotifyApi } = require('../../main');
 
 module.exports = {
   name: 'interactionCreate',
@@ -22,6 +23,54 @@ module.exports = {
           })
         );
       }
+
+      if (customId == 'Link') {
+        try {
+          const spotifyDoc = new spotifySearchSchema({
+            messID: interaction.message.id,
+          });
+          const messageId = spotifyDoc.messID;
+
+          const message = await interaction.channel.messages.fetch(messageId);
+
+          const embed = message.embeds[0];
+          const fields = embed.fields;
+
+          const firstField = fields[0].value;
+          let secondField = fields[1].value;
+          const thirdField = fields[2].value;
+
+          if ((secondField = 'Singiel')) {
+            secondField = ' ';
+          }
+
+          const req = firstField + ' ' + secondField + ' ' + thirdField;
+
+          const searchResult = await spotifyApi.searchTracks(`track:${req}`);
+
+          const firstResult = searchResult.body.tracks.items[0];
+
+          const songLink = firstResult.external_urls.spotify;
+
+          if (spotifyDoc) {
+            await interaction.reply({
+              content: `${songLink}`,
+              ephemeral: true,
+            });
+          } else {
+            await interaction.reply({
+              content: 'Nie znaleziono dokumentu o podanych wartościach.',
+              ephemeral: true,
+            });
+          }
+        } catch (err) {
+          console.error(`Błąd przy pobieraniu linku do piosenki: ${err}`);
+          await interaction.reply({
+            content: 'Wystąpił błąd podczas pobierania linku do piosenki.',
+            ephemeral: true,
+          });
+        }
+      }
     } else if (interaction.isStringSelectMenu()) {
       if (customId == 'reaction-roles') {
         for (let i = 0; i < values.length; i++) {
@@ -37,16 +86,18 @@ module.exports = {
             case false:
               member.roles.add(roleId);
               break;
+            default:
+              console.log(
+                'An error occured in the reaction-roles switch statement'
+              );
+              break;
           }
         }
-
-        interaction.reply({
-          content: `Otrztrzymałeś zaznaczone role.`,
+        await interaction.reply({
+          content: 'Twoje role zostały zaktualizowane.',
           ephemeral: true,
         });
       }
-    } else {
-      return;
     }
   },
 };
