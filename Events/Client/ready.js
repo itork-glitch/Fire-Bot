@@ -17,6 +17,7 @@ module.exports = {
       console.log(' Połączono z bazą danych.');
     }
 
+    console.log(` Połączono z Spotify`);
     console.log(` Uruchomiono ${client.user.username}'a.`);
   },
 };
