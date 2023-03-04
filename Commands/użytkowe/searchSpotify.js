@@ -9,6 +9,16 @@ const {
 const spotifyApi = require('../../main').spotifyApi;
 const spotifySearchSchema = require('../../Models/Spotify');
 
+spotifyApi.clientCredentialsGrant().then(
+  function (data) {
+    spotifyApi.setAccessToken(data.body['access_token']);
+    console.log(' Połączono z Spotify');
+  },
+  function (err) {
+    console.log('Błąd podczas pobierania tokenu dostępu Spotify.', err.message);
+  }
+);
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('spotify')

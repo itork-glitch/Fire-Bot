@@ -28,17 +28,6 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: key.spotifySecret,
 });
 
-// Pobieramy token dostępu za pomocą clientId i clientSecret
-spotifyApi.clientCredentialsGrant().then(
-  function (data) {
-    // Ustawiamy token jako autoryzację do Spotify API
-    spotifyApi.setAccessToken(data.body['access_token']);
-  },
-  function (err) {
-    console.log('Błąd podczas pobierania tokenu dostępu Spotify.', err.message);
-  }
-);
-
 client.commands = new Collection();
 
 const configuration = new Configuration({

@@ -1,6 +1,12 @@
 const { verifiedRoleID } = require('../../security/config.json');
 const spotifySearchSchema = require('../../Models/Spotify');
 const { spotifyApi } = require('../../main');
+const {
+  EmbedBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+} = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -99,6 +105,148 @@ module.exports = {
           return interaction.reply({
             content: 'Coś poszło nie tak! Spróbuj ponownie później.',
             ephermaly: true,
+          });
+        }
+      }
+
+      if (customId == 'wiadomosc-mess') {
+        try {
+          const mess = interaction.message.id;
+
+          const message = await interaction.channel.messages.fetch(mess);
+          const embed = await message.embeds[0];
+          const fields = await embed.fields.map((field) => {
+            const value = field.value.slice(3, -3);
+            return { ...field, value };
+          });
+
+          if (interaction.user.id !== message.interaction.user.id) {
+            const err1 = new EmbedBuilder()
+              .setTitle('Błąd')
+              .setColor(0xff0000)
+              .setDescription(
+                'Nie możesz użyć buttona ponieważ nie jesteś **autorem komendy**'
+              );
+            return interaction.message.edit({ embeds: [err1] });
+          }
+
+          const req = await fields[0].value;
+          const messageUser = await interaction.channel.messages.fetch(req);
+          const messFin = messageUser.content;
+
+          if (messFin) {
+            const messageEmbed = new EmbedBuilder()
+              .setTitle('💭・Wiadomość')
+              .setColor('Random')
+              .setDescription(`Treść wiadomości: \n \`\`\`${messFin}\`\`\``);
+
+            setTimeout(() => {
+              interaction.message.edit({
+                embeds: [messageEmbed],
+                components: [],
+                content: '',
+              });
+            }, 350);
+          } else {
+            return interaction.message.edit({
+              content:
+                '**Wiadomośc musi być na czacie przynajmniej `3 sek` lub nie jest wiadomością!**',
+              embeds: [],
+              components: [],
+            });
+          }
+        } catch (err) {
+          interaction.message.edit({
+            content: 'Wystąpił błąd',
+            embeds: [],
+            components: [],
+          });
+        }
+      }
+
+      if (customId == 'wiadomosc-embed') {
+        try {
+          const mess = interaction.message.id;
+
+          const message = await interaction.channel.messages.fetch(mess);
+          const embed = await message.embeds[0];
+          const fields = await embed.fields.map((field) => {
+            const value = field.value.slice(3, -3);
+            return { ...field, value };
+          });
+
+          if (interaction.user.id !== message.interaction.user.id) {
+            const err1 = new EmbedBuilder()
+              .setTitle('Błąd')
+              .setColor(0xff0000)
+              .setDescription(
+                'Nie możesz użyć buttona ponieważ nie jesteś **autorem komendy**'
+              );
+            return interaction.reply({ embeds: [err1], ephemeral: true });
+          }
+
+          const req = await fields[0].value;
+          const embedUser = await interaction.channel.messages.fetch(req);
+          const embedUs = embedUser.embeds[0];
+          const title = embedUs?.title ?? '';
+          const { name, iconURL } = embedUs?.author ?? '';
+          const description = embedUs?.description ?? '';
+          const field = embedUs?.fields ?? [];
+          let color = embedUs?.color ?? 'Random';
+          const { url } = embedUs?.image ?? '';
+          let thumbnail = embedUs?.thumbnail ?? '';
+          const { text } = embedUs?.footer ?? '';
+
+          const embed2 = new EmbedBuilder().setTitle(title);
+
+          thumbnail = thumbnail.url;
+
+          if (name) {
+            embed2.setAuthor({
+              name,
+              iconURL,
+            });
+          }
+          if (description.length > 0) {
+            embed2.setDescription(description);
+          }
+          if (field) {
+            embed2.addFields(field);
+          }
+
+          if (color == 'Random') {
+            embed2.setColor(`Random`);
+          } else {
+            embed2.setColor(color);
+          }
+          if (url) {
+            embed2.setImage(url);
+          }
+          if (thumbnail) {
+            embed2.setThumbnail(thumbnail);
+          }
+          if (text) {
+            embed2.setFooter({ text: text });
+          }
+
+          if (embed2) {
+            interaction.message.edit({
+              content: '',
+              embeds: [embed2],
+              components: [],
+            });
+          } else {
+            return interaction.reply({
+              content: 'Wiadomośc musi być na czacie przynajmniej `3 sek`',
+              embeds: [],
+              components: [],
+            });
+          }
+        } catch (error) {
+          return interaction.message.edit({
+            content: '**Wiadomość nie jest embedem!**',
+            embeds: [],
+            components: [],
           });
         }
       }
